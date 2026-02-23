@@ -9,7 +9,6 @@ function Articles() {
   useEffect(() => {
     async function getArticles() {
       const response = await fetch(articlesUrl);
-      console.log("response for all articles>>", response);
       const { articles } = await response.json();
       setArticles(articles);
       console.log(articles[0]);

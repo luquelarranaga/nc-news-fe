@@ -7,12 +7,12 @@ function SingleArticle() {
 
   const [singleArticle, setArticle] = useState({});
   const [votes, setVote] = useState(0);
+  const [isShowing, setIsShowing] = useState(false);
+
   useEffect(() => {
     async function getArticle() {
       const response = await fetch(articleIdUrl);
-      console.log("response>>", response);
       const { article } = await response.json();
-      console.log("ind article>>", article);
       setArticle(article);
       setVote(article.votes);
     }
@@ -21,6 +21,10 @@ function SingleArticle() {
 
   function upVote() {
     setVote(votes + 1);
+  }
+
+  function updateIsShowing() {
+    setIsShowing(!isShowing);
   }
 
   return (
@@ -47,15 +51,21 @@ function SingleArticle() {
         <p>{singleArticle.body}</p>
       </div>
       <section className="comment-buttons">
-        <button className="upvote-button" type="button" onClick={upVote}>
-          <img
-            className="upvote-img"
-            src="../src/assets/upvote2.png"
-            alt="upvote"
-          />
-        </button>
+        <div>
+          <button className="upvote-button" type="button" onClick={upVote}>
+            <img
+              className="upvote-img"
+              src="../src/assets/upvote2.png"
+              alt="upvote"
+            />
+          </button>
+          <button type="button" onClick={updateIsShowing}>
+            show comments
+          </button>
+        </div>
         <button type="button">new comment</button>
       </section>
+      {isShowing && <h1>comment section!! </h1>}
     </section>
   );
 }

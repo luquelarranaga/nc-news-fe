@@ -51,16 +51,18 @@ button:focus-visible {
     margin: 0px 20px 20px;
     display: flex;
     justify-content:space-between;
+    align-items: center;
 }
 
 .upvote-button {
     background-color: rgb(115, 221, 152);
     padding: 0px 8px;
+    margin: 0px 5px;
 }
 
 .upvote-img {
-    height: 20px;
-    width:20px;
+    height: 30px;
+    width:30px;
     padding: 0px;
 }
 
