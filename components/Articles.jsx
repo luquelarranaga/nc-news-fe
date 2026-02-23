@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Link } from "react-router";
+import { Link } from "react-router-dom";
 
 const articlesUrl = "https://back-end-nc-news-yvh9.onrender.com/api/articles";
 
@@ -9,6 +9,7 @@ function Articles() {
   useEffect(() => {
     async function getArticles() {
       const response = await fetch(articlesUrl);
+      console.log("response for all articles>>", response);
       const { articles } = await response.json();
       setArticles(articles);
       console.log(articles[0]);
@@ -20,6 +21,7 @@ function Articles() {
     <>
       <ul>
         {allArticles.map((article) => {
+          const articleId = article.article_id;
           return (
             <li className="article">
               <img
@@ -32,9 +34,7 @@ function Articles() {
                   {article.author}{" "}
                   {new Date(article.created_at).toLocaleDateString()}
                 </h6>
-                <Link
-                  to={`https://back-end-nc-news-yvh9.onrender.com/api/articles/${article.article_id}`}
-                >
+                <Link to={`/articles/${articleId}`}>
                   <h3 className="article-title">{article.title}</h3>
                 </Link>
                 <h5 className="article-topic">{article.topic}</h5>

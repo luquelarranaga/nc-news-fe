@@ -37,6 +37,25 @@ button:focus-visible {
     margin-right: 50px;
 }
 
+.single-article {
+    background-color: lightgray;
+    margin: 10px;
+    color: rgb(46, 46, 46);
+    list-style: none;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    margin-right: 50px;
+}
+
+.article-body {
+    background-color: rgb(175, 175, 175);
+    margin: 0px 20px 20px;
+    border-radius: 5px;
+    padding: 0px 10px;
+    color: rgb(46, 46, 46);
+}
+
 .article-topic{
     margin: 0px;
 }
