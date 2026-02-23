@@ -13,7 +13,6 @@ button {
   font-size: 1em;
   font-weight: 500;
   font-family: inherit;
-  background-color: #1a1a1a;
   cursor: pointer;
   transition: border-color 0.25s;
 
@@ -46,6 +45,23 @@ button:focus-visible {
     display: flex;
     flex-direction: column;
     margin-right: 50px;
+}
+
+.comment-buttons {
+    margin: 0px 20px 20px;
+    display: flex;
+    justify-content:space-between;
+}
+
+.upvote-button {
+    background-color: rgb(115, 221, 152);
+    padding: 0px 8px;
+}
+
+.upvote-img {
+    height: 20px;
+    width:20px;
+    padding: 0px;
 }
 
 .article-body {
