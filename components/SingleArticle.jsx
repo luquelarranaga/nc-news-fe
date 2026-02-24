@@ -1,5 +1,6 @@
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
+import Popup from "reactjs-popup";
 
 function SingleArticle() {
   const { article_id } = useParams();
@@ -7,7 +8,8 @@ function SingleArticle() {
 
   const [singleArticle, setArticle] = useState({});
   const [votes, setVote] = useState(0);
-  const [isShowing, setIsShowing] = useState(false);
+  const [areCommentsShowing, setCommentsShowing] = useState(false);
+  const [commentPopUp, setCommentPopUp] = useState(false);
 
   useEffect(() => {
     async function getArticle() {
@@ -23,8 +25,12 @@ function SingleArticle() {
     setVote(votes + 1);
   }
 
-  function updateIsShowing() {
-    setIsShowing(!isShowing);
+  function updateCommentsShowing() {
+    setCommentsShowing(!areCommentsShowing);
+  }
+
+  function updateCommentPopUp() {
+    setCommentPopUp(!commentPopUp);
   }
 
   return (
@@ -59,13 +65,16 @@ function SingleArticle() {
               alt="upvote"
             />
           </button>
-          <button type="button" onClick={updateIsShowing}>
+          <button type="button" onClick={updateCommentsShowing}>
             show comments
           </button>
         </div>
-        <button type="button">new comment</button>
+        <Popup trigger={<button type="button">new comment</button>} modal>
+          {" "}
+          Modal content !!
+        </Popup>
       </section>
-      {isShowing && <h1>comment section!! </h1>}
+      {areCommentsShowing && <h1>comment section!! </h1>}
     </section>
   );
 }
