@@ -10,21 +10,30 @@ function SingleArticle() {
 
   const [singleArticle, setArticle] = useState({});
   const [votes, setVote] = useState(0);
+  const [updateVote, setUpdateVote] = useState(1);
   const [areCommentsShowing, setCommentsShowing] = useState(false);
   const [commentPopUp, setCommentPopUp] = useState(false);
 
   useEffect(() => {
     async function getArticle() {
-      const response = await fetch(articleIdUrl);
-      const { article } = await response.json();
+      const { data } = await axios.get(articleIdUrl);
+      const { article } = data;
       setArticle(article);
       setVote(article.votes);
     }
     getArticle();
   }, []);
 
-  function upVote() {
-    setVote(votes + 1);
+  async function upVote() {
+    if (updateVote === -1) {
+      setVote(votes + updateVote);
+      setUpdateVote(1);
+      const response = await axios.patch(articleIdUrl, { inc_votes: -1 });
+    } else if (updateVote === 1) {
+      setVote(votes + updateVote);
+      setUpdateVote(-1);
+      const response = await axios.patch(articleIdUrl, { inc_votes: 1 });
+    }
   }
 
   function updateCommentsShowing() {
@@ -60,7 +69,13 @@ function SingleArticle() {
       </div>
       <section className="comment-buttons">
         <div>
-          <button className="upvote-button" type="button" onClick={upVote}>
+          <button
+            className={
+              updateVote === 1 ? "upvoted-button" : "not-upvoted-button"
+            }
+            type="button"
+            onClick={upVote}
+          >
             <img
               className="upvote-img"
               src="../src/assets/upvote2.png"
