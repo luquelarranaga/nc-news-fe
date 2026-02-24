@@ -72,7 +72,9 @@ function SingleArticle() {
         </div>
         <Popup trigger={<button type="button">new comment</button>} modal>
           {" "}
-          Modal content !!
+          <div className="modal">
+            <h3>modal content!!</h3>
+          </div>
         </Popup>
       </section>
       {areCommentsShowing && <Comments articleId={article_id} />}
