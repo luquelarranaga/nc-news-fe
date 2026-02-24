@@ -13,6 +13,7 @@ function SingleArticle() {
   const [updateVote, setUpdateVote] = useState(1);
   const [areCommentsShowing, setCommentsShowing] = useState(false);
   const [commentPopUp, setCommentPopUp] = useState(false);
+  const [error, setError] = useState(false);
 
   useEffect(() => {
     async function getArticle() {
@@ -25,14 +26,24 @@ function SingleArticle() {
   }, []);
 
   async function upVote() {
-    if (updateVote === -1) {
-      setVote(votes + updateVote);
-      setUpdateVote(1);
-      const response = await axios.patch(articleIdUrl, { inc_votes: -1 });
-    } else if (updateVote === 1) {
-      setVote(votes + updateVote);
-      setUpdateVote(-1);
-      const response = await axios.patch(articleIdUrl, { inc_votes: 1 });
+    try {
+      if (updateVote === -1) {
+        setVote(votes + updateVote);
+        setUpdateVote(1);
+        const response = await axios.patch(articleIdUrl, {
+          inc_votes: -1,
+        });
+        setError(false);
+      } else if (updateVote === 1) {
+        setVote(votes + updateVote);
+        setUpdateVote(-1);
+        const response = await axios.patch(articleIdUrl, {
+          inc_votes: 1,
+        });
+        setError(false);
+      }
+    } catch (err) {
+      setError(true);
     }
   }
 
@@ -93,6 +104,9 @@ function SingleArticle() {
           </div>
         </Popup>
       </section>
+      {error && (
+        <h6 style={{ color: "rgb(199, 16, 16)" }}> Something went wrong</h6>
+      )}
       {areCommentsShowing && <Comments articleId={article_id} />}
     </section>
   );
