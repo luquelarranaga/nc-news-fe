@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import Popup from "reactjs-popup";
 import Comments from "./Comments";
 import axios from "axios";
+import Modal from "./Modal";
 
 function SingleArticle() {
   const { article_id } = useParams();
@@ -99,9 +100,7 @@ function SingleArticle() {
         </div>
         <Popup trigger={<button type="button">new comment</button>} modal>
           {" "}
-          <div className="modal">
-            <h3>modal content!!</h3>
-          </div>
+          <Modal />
         </Popup>
       </section>
       {error && (

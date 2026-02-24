@@ -26,6 +26,10 @@ button {
   cursor: pointer;
 }
 
+#post-comment-button {
+    padding: 0px;
+}
+
 
 .article {
     background-color: lightgray;
@@ -127,4 +131,19 @@ background-color: rgb(175, 175, 175);;
     list-style: none;
     border-radius: 5px;
     padding: 10px;
+}
+
+.modal {
+    background-color: rgb(29, 29, 29);
+    border-radius: 5px;
+    width: 100%;
+    min-width: 300px;
+    min-height: 100px;
+    border: solid rgb(87, 4, 4) 5px;
+    padding: 20px;;
+}
+
+textarea {
+    resize: none;
+    width: 100%
 }
