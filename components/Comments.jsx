@@ -11,7 +11,6 @@ function Comments() {
     async function getComments() {
       const response = await fetch(commentsUrl);
       const { comments } = await response.json();
-      console.log("all comments>>", comments);
       setComments(comments);
     }
     getComments();
