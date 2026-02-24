@@ -1,6 +1,7 @@
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import Popup from "reactjs-popup";
+import Comments from "./Comments";
 
 function SingleArticle() {
   const { article_id } = useParams();
@@ -74,7 +75,7 @@ function SingleArticle() {
           Modal content !!
         </Popup>
       </section>
-      {areCommentsShowing && <h1>comment section!! </h1>}
+      {areCommentsShowing && <Comments articleId={article_id} />}
     </section>
   );
 }
