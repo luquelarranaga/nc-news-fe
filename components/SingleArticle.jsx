@@ -95,7 +95,7 @@ function SingleArticle() {
         </div>
         <Popup trigger={<button type="button">new comment</button>} modal>
           {" "}
-          <Modal />
+          <Modal articleId={article_id} />
         </Popup>
       </section>
       {error && (

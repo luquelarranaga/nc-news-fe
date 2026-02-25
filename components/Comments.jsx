@@ -15,6 +15,7 @@ function Comments() {
     }
     getComments();
   }, []);
+
   return (
     <>
       <ul className="comments-section">
