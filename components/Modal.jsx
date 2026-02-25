@@ -1,6 +1,8 @@
 import { useState } from "react";
+import { useEffect } from "react";
+import axios from "axios";
 
-function Modal() {
+function Modal({ articleId }) {
   const [inputValue, setInputValue] = useState("");
   const [invalidInput, setInvalidInput] = useState(true);
 
@@ -11,7 +13,7 @@ function Modal() {
       "https://vignette.wikia.nocookie.net/mrmen/images/d/d6/Mr-Tickle-9a.png/revision/latest?cb=20180127221953",
   };
 
-  function handleSubmit(e) {
+  async function handleSubmit(e) {
     e.preventDefault();
     if (inputValue === "") {
       setInvalidInput(true);
@@ -19,14 +21,18 @@ function Modal() {
       setInvalidInput(false);
     }
 
-    const newComment = {
-      username: user.name,
-      body: inputValue,
-    };
-
-    console.log("form json>>>", inputValue);
-    console.log("new comment>>>", newComment);
-
+    try {
+      await axios.post(
+        `https://back-end-nc-news-yvh9.onrender.com/api/articles/${articleId}/comments`,
+        {
+          username: user.username,
+          body: inputValue,
+        },
+      );
+      console.log("posted!");
+    } catch (err) {
+      console.log("error>>", err);
+    }
     setInputValue("");
   }
 
@@ -38,6 +44,7 @@ function Modal() {
     <section className="modal">
       <form onSubmit={handleSubmit}>
         {" "}
+        <p>{user.name}</p>
         <label htmlFor="comment"></label>
         <textarea
           id="comment"
