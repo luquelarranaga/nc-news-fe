@@ -13,7 +13,6 @@ function SingleArticle() {
   const [votes, setVote] = useState(0);
   const [updateVote, setUpdateVote] = useState(1);
   const [areCommentsShowing, setCommentsShowing] = useState(false);
-  const [commentPopUp, setCommentPopUp] = useState(false);
   const [error, setError] = useState(false);
 
   useEffect(() => {
@@ -50,10 +49,6 @@ function SingleArticle() {
 
   function updateCommentsShowing() {
     setCommentsShowing(!areCommentsShowing);
-  }
-
-  function updateCommentPopUp() {
-    setCommentPopUp(!commentPopUp);
   }
 
   return (
