@@ -1,9 +1,7 @@
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
-import Popup from "reactjs-popup";
 import Comments from "./Comments";
 import axios from "axios";
-import Modal from "./Modal";
 
 function SingleArticle() {
   const { article_id } = useParams();
@@ -12,7 +10,6 @@ function SingleArticle() {
   const [singleArticle, setArticle] = useState({});
   const [votes, setVote] = useState(0);
   const [updateVote, setUpdateVote] = useState(1);
-  const [areCommentsShowing, setCommentsShowing] = useState(false);
   const [error, setError] = useState(false);
 
   useEffect(() => {
@@ -47,10 +44,6 @@ function SingleArticle() {
     }
   }
 
-  function updateCommentsShowing() {
-    setCommentsShowing(!areCommentsShowing);
-  }
-
   return (
     <section className="single-article">
       <section className="article">
@@ -70,38 +63,27 @@ function SingleArticle() {
             comments {singleArticle.total_comments}, {votes}
           </h6>
         </div>
+        <button
+          className={updateVote === 1 ? "upvoted-button" : "not-upvoted-button"}
+          type="button"
+          onClick={upVote}
+        >
+          <img
+            className="upvote-img"
+            src="../src/assets/upvote2.png"
+            alt="upvote"
+          />
+        </button>
+        {error && (
+          <h6 style={{ color: "rgb(199, 16, 16)" }}> Something went wrong</h6>
+        )}
       </section>
       <div className="article-body">
         <p>{singleArticle.body}</p>
       </div>
-      <section className="comment-buttons">
-        <div>
-          <button
-            className={
-              updateVote === 1 ? "upvoted-button" : "not-upvoted-button"
-            }
-            type="button"
-            onClick={upVote}
-          >
-            <img
-              className="upvote-img"
-              src="../src/assets/upvote2.png"
-              alt="upvote"
-            />
-          </button>
-          <button type="button" onClick={updateCommentsShowing}>
-            show comments
-          </button>
-        </div>
-        <Popup trigger={<button type="button">new comment</button>} modal>
-          {" "}
-          <Modal articleId={article_id} />
-        </Popup>
+      <section className="comments-section">
+        <Comments />
       </section>
-      {error && (
-        <h6 style={{ color: "rgb(199, 16, 16)" }}> Something went wrong</h6>
-      )}
-      {areCommentsShowing && <Comments articleId={article_id} />}
     </section>
   );
 }
