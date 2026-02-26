@@ -1,27 +1,29 @@
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
+import axios from "axios";
 import SortBy from "./SortBy";
 import FilterBy from "./FilterBy";
 
-const articlesUrl = "https://back-end-nc-news-yvh9.onrender.com/api/articles";
-
 function Articles() {
   const [allArticles, setArticles] = useState([]);
+  const [query, setQuery] = useState("?sort_by=votes&order=desc");
+
+  const articlesUrl = `https://back-end-nc-news-yvh9.onrender.com/api/articles${query}`;
 
   useEffect(() => {
     async function getArticles() {
-      const response = await fetch(articlesUrl);
-      const { articles } = await response.json();
+      const { data } = await axios(articlesUrl);
+      const { articles } = data;
       setArticles(articles);
-      console.log(articles[0]);
+      console.log(articles);
     }
     getArticles();
-  }, []);
+  }, [query]);
 
   return (
     <>
       <div className="sorting-filtering">
-        <SortBy />
+        <SortBy changeQuery={setQuery} />
         <FilterBy />
       </div>
       <ul>
