@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { useState } from "react";
 import axios from "axios";
+import { Link } from "react-router-dom";
 
 function Topics() {
   const [allTopics, setTopics] = useState([]);
@@ -19,7 +20,11 @@ function Topics() {
   return (
     <ul>
       {allTopics.map((topic) => {
-        return <li>{topic.slug} </li>;
+        return (
+          <Link to={`/topics/${topic.slug}`}>
+            <li>{topic.slug} </li>
+          </Link>
+        );
       })}
     </ul>
   );
