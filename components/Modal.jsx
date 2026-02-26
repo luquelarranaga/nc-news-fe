@@ -14,6 +14,7 @@ function Modal({ articleId, addNewComment, currentComments }) {
   };
 
   const newComment = {
+    comment_id: currentComments.length + 1,
     author: user.username,
     body: inputValue,
     created_at: new Date(),

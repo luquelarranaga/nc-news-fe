@@ -3,6 +3,7 @@ import { useParams } from "react-router";
 import { useState } from "react";
 import Popup from "reactjs-popup";
 import Modal from "./Modal";
+import CommentCard from "./CommentCard";
 
 function Comments({}) {
   const { article_id } = useParams();
@@ -40,18 +41,7 @@ function Comments({}) {
       </Popup>
       {areCommentsShowing && (
         <ul>
-          {comments.map((comment) => {
-            return (
-              <li className="comments">
-                <p>{comment.body}</p>
-                <h6>
-                  {comment.author}{" "}
-                  {new Date(comment.created_at).toLocaleDateString()}
-                </h6>
-                <h6>votes {comment.votes}</h6>
-              </li>
-            );
-          })}
+          <CommentCard removeComment={setComments} comments={comments} />
         </ul>
       )}
     </>
