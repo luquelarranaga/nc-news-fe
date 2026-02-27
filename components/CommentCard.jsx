@@ -47,27 +47,41 @@ function CommentCard({ removeComment, comments }) {
         return (
           <>
             <li key={comment.comment_id} className="comment-card">
-              <img
-                className="user-avatar"
-                src={lookUp[comment.author]}
-                alt="user avatar"
-              />
-              <p>{comment.body}</p>
-              <h6>
-                {comment.author}{" "}
-                {new Date(comment.created_at).toLocaleDateString()}
-              </h6>
-              <h6>votes {comment.votes}</h6>
-              <button
-                className="all-buttons"
-                id="delete-button"
-                type="button"
-                onClick={() =>
-                  deleteComment(comment.comment_id, comment.author)
-                }
+              <div className="comment-user-details-wrapper">
+                <img
+                  className="user-avatar"
+                  src={lookUp[comment.author]}
+                  alt="user avatar"
+                />
+                <div className="comment-user-details">
+                  <h6>
+                    <span style={{ color: "rgba(212, 212, 212, 0.87)" }}>
+                      {comment.author}{" "}
+                    </span>
+                    commented on{" "}
+                    {new Date(comment.created_at).toLocaleDateString()}
+                  </h6>
+                  <h6>votes {comment.votes}</h6>
+                </div>
+              </div>
+              <p
+                className="comment-body"
+                style={{ color: "rgba(212, 212, 212, 0.87)" }}
               >
-                Delete
-              </button>
+                {comment.body}
+              </p>
+              {comment.author === loggedUser.username && (
+                <button
+                  className="all-buttons"
+                  id="delete-button"
+                  type="button"
+                  onClick={() =>
+                    deleteComment(comment.comment_id, comment.author)
+                  }
+                >
+                  Delete
+                </button>
+              )}
             </li>
             <Popup trigger={setUnauthorised === true}>You can't delete</Popup>
           </>

@@ -74,21 +74,16 @@ function SingleArticle() {
   return (
     <>
       <section className="article-list-card">
-        <img
-          className="article-img"
-          src={singleArticle.article_img_url}
-          alt="article image"
+        <ArticleCard
+          articleImg={article.article_img_url}
+          author={article.author}
+          createdAt={article.created_at}
+          title={article.title}
+          topic={article.topic}
+          totalComments={article.total_comments}
+          votes={article.votes}
         />
         <div>
-          <h6 className="article-author-topic">
-            {singleArticle.author}{" "}
-            {new Date(singleArticle.created_at).toLocaleDateString()}
-          </h6>
-          <h3 className="article-title">{singleArticle.title}</h3>
-          <h5 className="article-topic">{singleArticle.topic}</h5>
-          <h6 className="article-comments-votes">
-            comments {singleArticle.total_comments}, {votes}
-          </h6>
           <div className="voting-buttons">
             <VotingButtons
               upVote={upVote}
@@ -97,7 +92,9 @@ function SingleArticle() {
               downVoted={downVoted}
             />
           </div>
-          <p>{singleArticle.body}</p>
+          <p style={{ color: "rgba(212, 212, 212, 0.87)" }}>
+            {singleArticle.body}
+          </p>
         </div>
         {error && (
           <h6 style={{ color: "rgb(199, 16, 16)" }}> Something went wrong</h6>

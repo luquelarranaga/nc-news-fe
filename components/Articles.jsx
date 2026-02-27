@@ -3,6 +3,7 @@ import { Link, useSearchParams } from "react-router-dom";
 import axios from "axios";
 import SortBy from "./SortBy";
 import FilterBy from "./FilterBy";
+import ArticleCard from "./ArticleCard";
 
 function Articles() {
   const [allArticles, setArticles] = useState([]);
@@ -37,24 +38,15 @@ function Articles() {
           const articleId = article.article_id;
           return (
             <li className="article-list-card">
-              <img
-                className="article-img"
-                src={article.article_img_url}
-                alt="user avatar"
+              <ArticleCard
+                articleImg={article.article_img_url}
+                author={article.author}
+                createdAt={article.created_at}
+                title={article.title}
+                topic={article.topic}
+                totalComments={article.total_comments}
+                votes={article.votes}
               />
-              <div>
-                <h6 className="article-author-topic">
-                  {article.author}{" "}
-                  {new Date(article.created_at).toLocaleDateString()}
-                </h6>
-                <Link to={`/articles/${articleId}`}>
-                  <h3 className="article-title">{article.title}</h3>
-                </Link>
-                <h5 className="article-topic">{article.topic}</h5>
-                <h6 className="article-comments-votes">
-                  comments {article.total_comments}, {article.votes}
-                </h6>
-              </div>
             </li>
           );
         })}

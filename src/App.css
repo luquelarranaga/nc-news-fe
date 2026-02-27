@@ -72,13 +72,6 @@ hr {
     margin: 0% 6%;
     background-color: #1e1e1e;
 }
-/* 
-.css-b62m3t-container{
-    appearance: none;
-    background-color: #1e1e1e;
-    color: #1e1e1e;
-    border-radius: 1%;
-} */
 
 button {
   border-radius: 8px;
@@ -110,9 +103,16 @@ ul {
      min-height: 200px;
 }
 
+.article-img-wrapper {
+  width: 200px;
+  flex-shrink: 0;
+}
+
 .article-img {
-    min-height: 300px;
-    min-width: 300px;
+  width: 90%;
+  height: 90%;
+  object-fit: cover;
+  border-radius: 8px;
 }
 
 .article-title {
@@ -130,6 +130,7 @@ ul {
     border-radius: 5px;
     display: flex;
     flex-direction: column;
+    flex-shrink: 1;
 }
 
 .voting-buttons {
@@ -180,9 +181,10 @@ ul {
 }
 
 .article-img{
-    width: 80px;
-    height: 80px;
+    width: 70%;
+    /* height: 80px; */
     margin: 10px;
+    object-fit: contain;
 }
 
 .modal {
@@ -213,13 +215,37 @@ ul {
     color: #888;
     list-style: none;
     border-radius: 10px;
-    padding: 10px;
+    padding: 20px;
+}
+
+.comment-user-details-wrapper {
+    display: flex;
+    flex-flow: row;
+}
+
+.comment-user-details h6 {
+    margin: 0 10px;
+}
+
+.comment-body {
+    margin: 10px 0 0;
 }
 
 #delete-button {
-    background-color: rgb(41, 0, 0);
-    color: rgb(146, 5, 5);
-    border: rgb(146, 5, 5) 0.5px solid;
+    background-color:rgb(146, 5, 5);
+    color: rgb(40, 1, 1);
+   box-shadow: 0 0 20px rgb(146, 5, 5);
+    margin: 20px 0 0 0;
+    border: none;
+    font-size:x-small;
+}
+
+#delete-button:hover {
+    background-color:rgb(146, 5, 5);
+    color: rgb(246, 195, 195);
+   box-shadow: 0 0 20px rgb(247, 112, 112);
+    margin: 20px 0 0 0;
+    border: none;
 }
 
 .modal {

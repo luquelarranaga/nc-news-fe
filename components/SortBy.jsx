@@ -74,7 +74,7 @@ function SortBy({ changeSortBy, changeOrder, changeToggled }) {
         />
       </div>
       <button
-        className="order-toggle"
+        className="all-buttons"
         onClick={handleToggle}
         aria-label="toggle order"
       >
