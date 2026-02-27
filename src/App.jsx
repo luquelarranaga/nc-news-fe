@@ -8,19 +8,23 @@ import SingleArticle from "../components/SingleArticle";
 import Topics from "../components/Topics";
 import TopicSlug from "../components/TopicSlug";
 import Comments from "../components/Comments";
+import { UserProvider } from "./context/User";
 
 function App() {
   return (
     <>
-      <Header />
-      <Nav />
-      <Routes>
-        <Route path="/" element={<Articles />} />
-        <Route path="/articles/:article_id" element={<SingleArticle />} />
-        <Route path="/articles/:article_id/comments" element={<Comments />} />
-        <Route path="/topics" element={<Topics />} />
-        <Route path="/topics/:slug" element={<TopicSlug />} />
-      </Routes>
+      <UserProvider>
+        <Header />
+        <Nav />
+        <hr />
+        <Routes>
+          <Route path="/" element={<Articles />} />
+          <Route path="/articles/:article_id" element={<SingleArticle />} />
+          <Route path="/articles/:article_id/comments" element={<Comments />} />
+          <Route path="/topics" element={<Topics />} />
+          <Route path="/topics/:slug" element={<TopicSlug />} />
+        </Routes>
+      </UserProvider>
     </>
   );
 }
