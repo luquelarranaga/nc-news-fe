@@ -1,4 +1,7 @@
+import { Link } from "react-router-dom";
+
 function ArticleCard({
+  articleId,
   articleImg,
   author,
   createdAt,
@@ -14,7 +17,9 @@ function ArticleCard({
         <h6 className="article-author-topic">
           {author} {new Date(createdAt).toLocaleDateString()}
         </h6>
-        <h3 className="article-title">{title}</h3>
+        <Link to={`/articles/${articleId}`}>
+          <h3 className="article-title">{title}</h3>
+        </Link>
         <h5 className="article-topic">{topic}</h5>
         <h6 className="article-comments-votes">
           comments {totalComments}, {votes}

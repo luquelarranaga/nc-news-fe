@@ -18,7 +18,7 @@ function Articles() {
       const { data } = await axios(articlesUrl);
       const { articles } = data;
       setArticles(articles);
-      console.log(articles);
+      console.log("ARTICLES in articles component>>>", articles);
     }
     getArticles();
   }, [sortBy, toggled]);
@@ -33,12 +33,14 @@ function Articles() {
         />
         <FilterBy />
       </div>
-      <ul>
+      <ul className="articles-list">
         {allArticles.map((article) => {
           const articleId = article.article_id;
+          console.log("article idssss >>", articleId);
           return (
             <li className="article-list-card">
               <ArticleCard
+                articleId={articleId}
                 articleImg={article.article_img_url}
                 author={article.author}
                 createdAt={article.created_at}
