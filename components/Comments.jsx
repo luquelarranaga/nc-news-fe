@@ -26,21 +26,36 @@ function Comments({}) {
 
   return (
     <>
-      <div>
-        <button type="button" onClick={updateCommentsShowing}>
+      <div className="comment-buttons-section">
+        <button
+          className="all-buttons"
+          type="button"
+          onClick={updateCommentsShowing}
+          style={{
+            borderColor:
+              areCommentsShowing === true ? "rgb(172, 217, 172)" : "",
+          }}
+        >
           show comments
         </button>
+        <Popup
+          trigger={
+            <button type="button" className="all-buttons">
+              new comment
+            </button>
+          }
+          modal
+        >
+          {" "}
+          <Modal
+            articleId={article_id}
+            addNewComment={setComments}
+            currentComments={comments}
+          />
+        </Popup>
       </div>
-      <Popup trigger={<button type="button">new comment</button>} modal>
-        {" "}
-        <Modal
-          articleId={article_id}
-          addNewComment={setComments}
-          currentComments={comments}
-        />
-      </Popup>
       {areCommentsShowing && (
-        <ul>
+        <ul style={{ margin: 0 }}>
           <CommentCard removeComment={setComments} comments={comments} />
         </ul>
       )}

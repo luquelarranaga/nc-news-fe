@@ -32,7 +32,7 @@ function CommentCard({ removeComment, comments }) {
       {comments.map((comment) => {
         return (
           <>
-            <li key={comment.comment_id} className="comments">
+            <li key={comment.comment_id} className="comment-card">
               <p>{comment.body}</p>
               <h6>
                 {comment.author}{" "}
@@ -40,6 +40,8 @@ function CommentCard({ removeComment, comments }) {
               </h6>
               <h6>votes {comment.votes}</h6>
               <button
+                className="all-buttons"
+                id="delete-button"
                 type="button"
                 onClick={() =>
                   deleteComment(comment.comment_id, comment.author)

@@ -29,7 +29,6 @@ function Nav() {
       >
         Topics
       </button>
-      <hr />
     </nav>
   );
 }
