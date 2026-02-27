@@ -1,25 +1,22 @@
 import { useState } from "react";
 import axios from "axios";
+import { useContext } from "react";
+import { UserContext } from "../src/context/User";
 
 function Modal({ articleId, addNewComment, currentComments }) {
   const [inputValue, setInputValue] = useState("");
   const [invalidInput, setInvalidInput] = useState(false);
   const [error, setError] = useState(false);
 
-  const user = {
-    username: "tickle122",
-    name: "Tom Tickle",
-    avatar_url:
-      "https://vignette.wikia.nocookie.net/mrmen/images/d/d6/Mr-Tickle-9a.png/revision/latest?cb=20180127221953",
-  };
+  const { loggedUser } = useContext(UserContext);
 
   const newComment = {
     comment_id: currentComments.length + 1,
-    author: user.username,
+    author: loggedUser.username,
     body: inputValue,
     created_at: new Date(),
     votes: 0,
-    avatar_url: user.avatar_url,
+    avatar_url: loggedUser.avatar_url,
   };
 
   async function handleSubmit(e) {
@@ -32,7 +29,7 @@ function Modal({ articleId, addNewComment, currentComments }) {
         await axios.post(
           `https://back-end-nc-news-yvh9.onrender.com/api/articles/${articleId}/comments`,
           {
-            username: user.username,
+            username: loggedUser.username,
             body: inputValue,
           },
         );
@@ -55,7 +52,7 @@ function Modal({ articleId, addNewComment, currentComments }) {
     <section className="modal">
       <form onSubmit={handleSubmit}>
         {" "}
-        <p>{user.name}</p>
+        <p>{loggedUser.name}</p>
         <label htmlFor="comment"></label>
         <textarea
           id="comment"
