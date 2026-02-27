@@ -1,12 +1,26 @@
 import axios from "axios";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Popup from "reactjs-popup";
+import { UserContext } from "../src/context/User";
+import { useContext } from "react";
+import getUserAvatars from "../utils/getUserAvatars";
 
 function CommentCard({ removeComment, comments }) {
   const [unauthorised, setUnauthorised] = useState(false);
+  const [lookUp, setLookUp] = useState([]);
+
+  const { loggedUser } = useContext(UserContext);
+
+  useEffect(() => {
+    async function fetchLookUp() {
+      const lookUp = await getUserAvatars();
+      setLookUp(lookUp);
+    }
+    fetchLookUp();
+  }, []);
 
   async function deleteComment(comment_id, author) {
-    if (author === "tickle122") {
+    if (author === loggedUser.username) {
       try {
         await axios.delete(
           `https://back-end-nc-news-yvh9.onrender.com/api/comments/${comment_id}`,
@@ -33,6 +47,11 @@ function CommentCard({ removeComment, comments }) {
         return (
           <>
             <li key={comment.comment_id} className="comment-card">
+              <img
+                className="user-avatar"
+                src={lookUp[comment.author]}
+                alt="user avatar"
+              />
               <p>{comment.body}</p>
               <h6>
                 {comment.author}{" "}

@@ -59,6 +59,15 @@ hr {
   margin: 0 6% 1%;
 }
 
+.user-avatar {
+    height: 6vh;
+    width: 6vh;
+    border-radius: 100%;
+    /* border: rgb(146, 5, 5) 4px solid; */
+    box-shadow: 0 0 20px rgb(146, 5, 5);
+    margin: 2px; 
+}
+
 .sorting-filtering {
     margin: 0% 6%;
     background-color: #1e1e1e;
