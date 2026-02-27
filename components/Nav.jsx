@@ -1,7 +1,9 @@
 import { useNavigate } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 
 function Nav() {
   const navigate = useNavigate();
+  const { pathname } = useLocation();
 
   function navigateHome() {
     navigate("/");
@@ -13,12 +15,21 @@ function Nav() {
 
   return (
     <nav className="nav">
-      <button type="button" onClick={navigateHome}>
+      <button
+        className={`nav-buttons ${pathname === "/" ? "active" : ""}`}
+        type="button"
+        onClick={navigateHome}
+      >
         Home
       </button>
-      <button type="button" onClick={navigateTopics}>
+      <button
+        className={`nav-buttons ${pathname === "/topics" ? "active" : ""}`}
+        type="button"
+        onClick={navigateTopics}
+      >
         Topics
       </button>
+      <hr />
     </nav>
   );
 }

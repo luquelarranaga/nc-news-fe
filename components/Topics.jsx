@@ -18,11 +18,11 @@ function Topics() {
   }, []);
 
   return (
-    <ul>
+    <ul className="topics-list">
       {allTopics.map((topic) => {
         return (
           <Link to={`/topics/${topic.slug}`}>
-            <li>{topic.slug} </li>
+            <li className="topic-card">{topic.slug} </li>
           </Link>
         );
       })}

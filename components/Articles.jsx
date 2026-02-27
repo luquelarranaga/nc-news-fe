@@ -6,9 +6,11 @@ import FilterBy from "./FilterBy";
 
 function Articles() {
   const [allArticles, setArticles] = useState([]);
-  const [query, setQuery] = useState("?sort_by=votes&order=desc");
+  const [sortBy, setSortBy] = useState("sort_by=votes");
+  const [order, setOrderTo] = useState("order=desc");
+  const [toggled, setToggled] = useState(false);
 
-  const articlesUrl = `https://back-end-nc-news-yvh9.onrender.com/api/articles${query}`;
+  const articlesUrl = `https://back-end-nc-news-yvh9.onrender.com/api/articles?${sortBy}&${order}`;
 
   useEffect(() => {
     async function getArticles() {
@@ -18,19 +20,23 @@ function Articles() {
       console.log(articles);
     }
     getArticles();
-  }, [query]);
+  }, [sortBy, toggled]);
 
   return (
     <>
       <div className="sorting-filtering">
-        <SortBy changeQuery={setQuery} />
+        <SortBy
+          changeSortBy={setSortBy}
+          changeOrder={setOrderTo}
+          changeToggled={setToggled}
+        />
         <FilterBy />
       </div>
       <ul>
         {allArticles.map((article) => {
           const articleId = article.article_id;
           return (
-            <li className="article">
+            <li className="article-list-card">
               <img
                 className="article-img"
                 src={article.article_img_url}
