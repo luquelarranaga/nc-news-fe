@@ -1,3 +1,5 @@
+import { useState } from "react";
+
 function useAxios(dataFunction, { deps = [], params = [] }) {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -19,3 +21,5 @@ function useAxios(dataFunction, { deps = [], params = [] }) {
   }, [...deps]);
   return { isLoading, error, data };
 }
+
+export default useAxios;
