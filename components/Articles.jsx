@@ -4,24 +4,22 @@ import axios from "axios";
 import SortBy from "./SortBy";
 import FilterBy from "./FilterBy";
 import ArticleCard from "./ArticleCard";
+import useAxios from "./hooks/useAxios";
+import getArticles from "../utils/getArticles";
 
 function Articles() {
-  const [allArticles, setArticles] = useState([]);
   const [sortBy, setSortBy] = useState("sort_by=votes");
   const [order, setOrderTo] = useState("order=desc");
   const [toggled, setToggled] = useState(false);
 
-  const articlesUrl = `https://back-end-nc-news-yvh9.onrender.com/api/articles?${sortBy}&${order}`;
+  const { isLoading, error, data } = useAxios(getArticles, {
+    deps: [sortBy, order],
+    params: [sortBy, order],
+  });
 
-  useEffect(() => {
-    async function getArticles() {
-      const { data } = await axios(articlesUrl);
-      const { articles } = data;
-      setArticles(articles);
-      console.log("ARTICLES in articles component>>>", articles);
-    }
-    getArticles();
-  }, [sortBy, toggled]);
+  if (isLoading === true) return <h4>Loading...</h4>;
+  if (error)
+    return <h4 style={{ color: "rgb(199, 16, 16)" }}> Something went wrong</h4>;
 
   return (
     <>
@@ -34,7 +32,7 @@ function Articles() {
         <FilterBy />
       </div>
       <ul className="articles-list">
-        {allArticles.map((article) => {
+        {data.map((article) => {
           const articleId = article.article_id;
           console.log("article idssss >>", articleId);
           return (
