@@ -1,5 +1,5 @@
 import { useParams } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Comments from "./Comments";
 import axios from "axios";
 import VotingButtons from "./VotingButtons";
@@ -12,64 +12,49 @@ function SingleArticle() {
   console.log("article id in single article>>", article_id);
   const articleIdUrl = `https://back-end-nc-news-yvh9.onrender.com/api/articles/${article_id}`;
 
-  const [votes, setVote] = useState(0);
-  const [updateVote, setUpdateVote] = useState(1);
-  const [upVoted, setUpVoted] = useState(false);
-  const [downVoted, setDownVoted] = useState(false);
+  const [votes, setVotes] = useState(null);
+  const [hasUpvoted, setHasUpvoted] = useState(false);
+  const [hasDownvoted, setHasDownvoted] = useState(false);
+  const [voteError, setVoteError] = useState(false);
 
   const { isLoading, error, data } = useAxios(getArticleById, {
     deps: [article_id],
     params: [article_id],
   });
 
-  console.log("I am data >>>", data);
+  useEffect(() => {
+    if (data) setVotes(data.votes);
+  }, [data]);
+
   if (isLoading === true) return <h4>Loading...</h4>;
   if (error)
     return <h4 style={{ color: "rgb(199, 16, 16)" }}> Something went wrong</h4>;
 
   async function upVote() {
-    setUpVoted(!upVoted);
+    const increment = hasUpvoted ? -1 : 1;
+    setVotes((current) => current + increment);
+    setHasUpvoted(!hasUpvoted);
     try {
-      if (updateVote === -1) {
-        setVote(votes + updateVote);
-        setUpdateVote(1);
-        const response = await axios.patch(articleIdUrl, {
-          inc_votes: -1,
-        });
-        setError(false);
-      } else if (updateVote === 1) {
-        setVote(votes + updateVote);
-        setUpdateVote(-1);
-        const response = await axios.patch(articleIdUrl, {
-          inc_votes: 1,
-        });
-        setError(false);
-      }
+      await axios.patch(articleIdUrl, { inc_votes: increment });
+      setVoteError(false);
     } catch (err) {
-      setError(true);
+      setVotes((current) => current - increment);
+      setHasUpvoted(hasUpvoted);
+      setVoteError(true);
     }
   }
 
   async function downVote() {
-    setDownVoted(!downVoted);
+    const increment = hasDownvoted ? 1 : -1;
+    setVotes((current) => current + increment);
+    setHasDownvoted(!hasDownvoted);
     try {
-      if (updateVote === -1) {
-        setVote(votes - updateVote);
-        setUpdateVote(1);
-        const response = await axios.patch(articleIdUrl, {
-          inc_votes: +1,
-        });
-        setError(false);
-      } else if (updateVote === 1) {
-        setVote(votes - updateVote);
-        setUpdateVote(-1);
-        const response = await axios.patch(articleIdUrl, {
-          inc_votes: -1,
-        });
-        setError(false);
-      }
+      await axios.patch(articleIdUrl, { inc_votes: increment });
+      setVoteError(false);
     } catch (err) {
-      setError(true);
+      setVotes((current) => current - increment);
+      setHasDownvoted(hasDownvoted);
+      setVoteError(true);
     }
   }
 
@@ -85,7 +70,7 @@ function SingleArticle() {
             title={data.title}
             topic={data.topic}
             totalComments={data.total_comments}
-            votes={data.votes}
+            votes={votes}
           />
         </section>
         <div>
@@ -93,10 +78,16 @@ function SingleArticle() {
           <div className="voting-buttons">
             <VotingButtons
               upVote={upVote}
-              upVoted={upVoted}
+              hasUpvoted={hasUpvoted}
               downVote={downVote}
-              downVoted={downVoted}
+              hasDownvoted={hasDownvoted}
             />
+            {voteError && (
+              <h4 style={{ color: "rgb(199, 16, 16)" }}>
+                {" "}
+                Something went wrong
+              </h4>
+            )}
           </div>
         </div>
       </section>
