@@ -1,7 +1,7 @@
 import arrowUp from "../src/assets/arrow-up.svg";
 import arrowDown from "../src/assets/arrow-down.svg";
 
-function VotingButtons({ upVote, upVoted, downVote, downVoted }) {
+function VotingButtons({ upVote, hasUpvoted, downVote, hasDownvoted }) {
   return (
     <>
       <button
@@ -11,7 +11,7 @@ function VotingButtons({ upVote, upVoted, downVote, downVoted }) {
         onClick={upVote}
         id="upvote-button"
         style={{
-          borderColor: upVoted === true ? "rgb(172, 217, 172)" : "",
+          borderColor: hasUpvoted === true ? "rgb(172, 217, 172)" : "",
         }}
       >
         <img
@@ -28,7 +28,7 @@ function VotingButtons({ upVote, upVoted, downVote, downVoted }) {
         onClick={downVote}
         id="downvote-button"
         style={{
-          borderColor: downVoted === true ? "rgb(244, 65, 65)" : "",
+          borderColor: hasDownvoted === true ? "rgb(244, 65, 65)" : "",
         }}
       >
         <img
