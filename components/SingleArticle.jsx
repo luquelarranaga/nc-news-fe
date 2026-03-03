@@ -1,31 +1,31 @@
 import { useParams } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Comments from "./Comments";
 import axios from "axios";
 import VotingButtons from "./VotingButtons";
 import ArticleCard from "./ArticleCard";
+import getArticleById from "../utils/getArticleById";
+import useAxios from "./hooks/useAxios";
 
 function SingleArticle() {
   const { article_id } = useParams();
   console.log("article id in single article>>", article_id);
   const articleIdUrl = `https://back-end-nc-news-yvh9.onrender.com/api/articles/${article_id}`;
 
-  const [article, setArticle] = useState({});
   const [votes, setVote] = useState(0);
   const [updateVote, setUpdateVote] = useState(1);
-  const [error, setError] = useState(false);
   const [upVoted, setUpVoted] = useState(false);
   const [downVoted, setDownVoted] = useState(false);
 
-  useEffect(() => {
-    async function getArticle() {
-      const { data } = await axios.get(articleIdUrl);
-      const { article } = data;
-      setArticle(article);
-      setVote(article.votes);
-    }
-    getArticle();
-  }, []);
+  const { isLoading, error, data } = useAxios(getArticleById, {
+    deps: [article_id],
+    params: [article_id],
+  });
+
+  console.log("I am data >>>", data);
+  if (isLoading === true) return <h4>Loading...</h4>;
+  if (error)
+    return <h4 style={{ color: "rgb(199, 16, 16)" }}> Something went wrong</h4>;
 
   async function upVote() {
     setUpVoted(!upVoted);
@@ -78,18 +78,18 @@ function SingleArticle() {
       <section className="single-article-card">
         <section className="article-list-card">
           <ArticleCard
-            articleId={article.article_id}
-            articleImg={article.article_img_url}
-            author={article.author}
-            createdAt={article.created_at}
-            title={article.title}
-            topic={article.topic}
-            totalComments={article.total_comments}
-            votes={article.votes}
+            articleId={data.article_id}
+            articleImg={data.article_img_url}
+            author={data.author}
+            createdAt={data.created_at}
+            title={data.title}
+            topic={data.topic}
+            totalComments={data.total_comments}
+            votes={data.votes}
           />
         </section>
         <div>
-          <p style={{ color: "rgba(212, 212, 212, 0.87)" }}>{article.body}</p>
+          <p style={{ color: "rgba(212, 212, 212, 0.87)" }}>{data.body}</p>
           <div className="voting-buttons">
             <VotingButtons
               upVote={upVote}
@@ -98,9 +98,6 @@ function SingleArticle() {
               downVoted={downVoted}
             />
           </div>
-          {error && (
-            <h6 style={{ color: "rgb(199, 16, 16)" }}> Something went wrong</h6>
-          )}
         </div>
       </section>
 
