@@ -5,6 +5,7 @@ async function getArticleById(article_id) {
     `https://back-end-nc-news-yvh9.onrender.com/api/articles/${article_id}`,
   );
   const { article } = data;
+  return article;
 }
 
 export default getArticleById;
