@@ -1,16 +1,17 @@
 import { useState } from "react";
+import { useEffect } from "react";
 
 function useAxios(dataFunction, { deps = [], params = [] }) {
   const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState(null);
-  const [data, setData] = useState(null);
+  const [error, setError] = useState(false);
+  const [data, setData] = useState([]);
 
   useEffect(() => {
     async function setup() {
       setIsLoading(true);
       try {
-        const data = await dataFunction(...params);
-        setData(data);
+        const result = await dataFunction(...params);
+        setData(result);
       } catch (err) {
         setError(true);
       } finally {
