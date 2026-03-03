@@ -9,7 +9,7 @@ function useAxios(dataFunction, { deps = [], params = [] }) {
     async function setup() {
       setIsLoading(true);
       try {
-        const { data } = await dataFunction(...params);
+        const data = await dataFunction(...params);
         setData(data);
       } catch (err) {
         setError(true);
