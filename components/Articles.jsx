@@ -1,6 +1,4 @@
-import { useEffect, useState } from "react";
-import { Link, useSearchParams } from "react-router-dom";
-import axios from "axios";
+import { useState } from "react";
 import SortBy from "./SortBy";
 import FilterBy from "./FilterBy";
 import ArticleCard from "./ArticleCard";
@@ -34,7 +32,6 @@ function Articles() {
       <ul className="articles-list">
         {data.map((article) => {
           const articleId = article.article_id;
-          console.log("article idssss >>", articleId);
           return (
             <li className="article-list-card">
               <ArticleCard
