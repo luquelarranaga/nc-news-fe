@@ -1,8 +1,8 @@
 # NC News
 
-A social news aggregation website where users can browse and interact with articles, explore topics, and engage with the community through comments. Built with React and powered by the [NC News API](https://github.com/your-username/nc-news-api).
+A social news aggregation website where users can browse and interact with articles, explore topics, and engage with the community through comments. Built with React and powered by the [NC News API](https://github.com/luquelarranaga/back-end-nc-news).
 
-🔗 **Live Site:** [https://back-end-nc-news-yvh9.onrender.com/api/](https://back-end-nc-news-yvh9.onrender.com/api/)
+🔗 **Live Site:** [NC News](https://nc-news-maria.netlify.app/)
 
 ---
 
